@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+
+{% block css_files%}
+    <link rel="stylesheet" href="{% static 'blog/post.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/index.css' %}">
+{% endblock %}
+
+
+    <section id="welcome">
+        <header>
+            <img src="{% static 'blog/images/hoshiPhoto.png' %}" alt="Blog Logo" class="blog-logo">
+            <h2>My Blog</h2>
+        </header>
+        <p>Welcome to my blog! Here, I share insights, tutorials, and stories about technology, programming, and my personal experiences in the tech world. Stay tuned for regular updates and feel free to explore the posts!</p>
+    </section>
+    <section id="latest-posts">
+       <h2> My Latest Posts</h2>
+       <ul>
+           {% for post in posts %}
+           {% include "blog/includes/post.html" %}
+           {% endfor %}
+        </ul>
+        <!-- More blog posts can be added here -->
+    </section>
+    <section id="about-me">
+        <h2>About Me</h2>
+        <p>Hi! I'm hoshiar rawat, a software developer and tech enthusiast. I love sharing my knowledge through blog posts and tutorials.</p>
+        <p>Connect with me on <a href="https://twitter.com/janedoe" target="_blank">Twitter</a> and <a href="
+
+{% endblock %}
