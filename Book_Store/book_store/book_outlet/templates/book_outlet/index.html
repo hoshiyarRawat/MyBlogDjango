@@ -1,0 +1,22 @@
+{% extends "book_outlet/base.html" %}
+
+{% block title %}Book Outlet{% endblock %}
+
+{% block content %}
+
+ <h1>Welcome to the Book Outlet</h1>
+    <p>Discover a wide range of books at unbeatable prices!</p>
+   <ul>
+     {% for book in books %}
+      {{ book.title }} --- {{ book.slug }} --- {{ book.rating }} -
+       <li><a href="{{ book.get_absolute_url }}">{{ book.title }} by {{ book.author }} - Rating: {{ book.rating }} {% if book.is_bestseller %}(Bestseller){% endif %}</a></li>
+     {% empty %}
+       <li>No books available at the moment.</li>
+     {% endfor %}
+
+       {% comment %} <li><a href="{% url 'book_outlet:index' %}">Home</a></li>
+       <li><a href="{% url 'book_outlet:books' %}">Books</a></li>
+       <li><a href="{% url 'book_outlet:authors' %}">Authors</a></li> {% endcomment %}
+    </ul>
+
+{% endblock %}
