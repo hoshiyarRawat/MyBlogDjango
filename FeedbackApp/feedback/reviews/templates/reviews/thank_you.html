@@ -1,0 +1,13 @@
+{% extends 'reviews/base.html' %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>Thank You!</h1>
+        <p class="lead">{{ message }}</p>
+        {% comment %} <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Home</a> {% endcomment %}
+    </div>
+</div>
+{% endblock %}
