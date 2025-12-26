@@ -5,7 +5,7 @@ from .forms import ReviewForm
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from django.views.generic import CreateView
 
@@ -89,9 +89,17 @@ class ReviewListView(ListView):
     #     return data
 
 
-class SingleReviewView(TemplateView):
-    template_name = 'reviews/single_review.html'
+class SingleReviewView(DetailView):
     model = Review
+    template_name = 'reviews/single_review.html'
+    context_object_name = 'review'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        favorite_review_id = self.request.session['favorite_review']
+        print('---favorite review id---', favorite_review_id)
+        print('---current review id---', self.object.id)
+        context["is_favorite"] = str(favorite_review_id) == str(self.object.id)
+        return context
 
 
 
@@ -100,3 +108,13 @@ class SingleReviewView(TemplateView):
     #     review_id = kwargs.get('id')
     #     context['review'] = Review.objects.get(id=review_id)
     #     return context
+
+class AddFavoriteView(View):
+    def post(self, request):
+        print('---adding favorite--- ==', request.POST["review_id"])
+        review_id = request.POST["review_id"]
+        fav_review = Review.objects.get(pk=review_id)
+        print('---adding favorite--- ==', fav_review)
+        request.session['favorite_review'] = review_id
+        #review.save()
+        return HttpResponseRedirect("/reviews/" + review_id)
